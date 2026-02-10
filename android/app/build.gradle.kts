@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.skylinedrift.motion.core"
+    namespace = "com.gfcvgf.yghuyfcv"
     compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
@@ -30,7 +30,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.skylinedrift.motion.core"
+        applicationId = "com.gfcvgf.yghuyfcv"
         minSdk = 25
         targetSdk = 36
         versionCode = 1
@@ -39,7 +39,7 @@ android {
 
     buildTypes {
         release {
-            signingConfig = signingConfigs.getByName("release")
+            // signingConfig = signingConfigs.getByName("release")
         }
     }
 }

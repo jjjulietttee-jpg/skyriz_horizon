@@ -56,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       const Spacer(),
                       CustomText(
-                        text: 'SKYLINE DRIFT',
+                        text: 'SKYRIS HORIZON',
                         fontSize: context.largeTextSize * 1.8,
                         fontWeight: FontWeight.w900,
                         textAlign: TextAlign.center,

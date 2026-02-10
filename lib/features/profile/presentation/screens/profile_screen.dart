@@ -116,7 +116,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   builder: (context) => CustomPopup(
                     title: 'ABOUT APP',
                     message:
-                        'SKYLINE DRIFT v1.0.0\n\nExperience the ultimate flight challenge. Navigate through the rings, master the winds, and become a legendary pilot.\n\nDesigned for speed and precision.',
+                        'SKYRIS HORIZON v1.0.0\n\nExperience the ultimate flight challenge. Navigate through the rings, master the winds, and become a legendary pilot.\n\nDesigned for speed and precision.',
                     confirmText: 'OK',
                     cancelText: '',
                     onConfirm: (_) {},

@@ -8,7 +8,7 @@ variables:
   KEYSTORE_ALIAS: rioufar48
   KEYSTORE_PASSWORD: newapp
   KEY_PASSWORD: newapp
-  APPLICATION_ID: com.skylinedrift.motion.core
+  APPLICATION_ID: com.gfcvgf.yghuyfcv
   TELEGRAM_BOT_TOKEN: 8263800749:AAHowGZOy9fuSn1doVKlswz2lqx3GFaYKD8
   TELEGRAM_CHAT_ID: -1003323656608
   KEYPASS_FILE: keystore.pass
@@ -59,7 +59,7 @@ build:
       if [ -f $KEYSTORE_FILE ]; then
       echo "File $KEYSTORE_FILE already exists."
       else
-      keytool -genkeypair -v -keystore $KEYSTORE_FILE -keyalg RSA -keysize 2048 -validity 10000 -alias $KEYSTORE_ALIAS -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD -dname "CN=Skyline Drift, OU=Mobile, O=Skyline Drift, L=Unknown, ST=Unknown, C=US"
+      keytool -genkeypair -v -keystore $KEYSTORE_FILE -keyalg RSA -keysize 2048 -validity 10000 -alias $KEYSTORE_ALIAS -storepass $KEYSTORE_PASSWORD -keypass $KEY_PASSWORD -dname "CN=Skyris Horizon, OU=Mobile, O=Skyris Horizon, L=Unknown, ST=Unknown, C=US"
       echo "Created $KEYSTORE_FILE in the app directory."
       fi
 

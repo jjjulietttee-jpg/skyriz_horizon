@@ -149,7 +149,7 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       children: [
                         CustomText(
-                          text: 'SKYLINE DRIFT',
+                          text: 'SKYRIS HORIZON',
                           fontSize: context.largeTextSize * 2,
                           fontWeight: FontWeight.w900,
                           textAlign: TextAlign.center,

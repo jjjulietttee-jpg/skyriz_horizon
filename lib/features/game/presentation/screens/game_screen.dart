@@ -110,7 +110,7 @@ class _GameScreenContentState extends State<_GameScreenContent> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CustomText(
-                      text: 'SKYLINE DRIFT',
+                      text: 'SKYRIS HORIZON',
                       fontSize: context.largeTextSize * 1.5,
                       fontWeight: FontWeight.w900,
                       textAlign: TextAlign.center,
