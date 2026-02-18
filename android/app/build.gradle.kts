@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
 
@@ -19,27 +18,20 @@ android {
         jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
-    signingConfigs {
-        create("release") {
-            storeFile = file("keystore.jks")
-            storePassword = "newapp"
-            keyAlias = "rioufar48"
-            keyPassword = "newapp"
-            storeType = "jks"
-        }
-    }
-
     defaultConfig {
         applicationId = "com.gfcvgf.yghuyfcv"
         minSdk = 25
         targetSdk = 36
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 4
+        versionName = "1.0.3"
     }
 
     buildTypes {
-        release {
-            // signingConfig = signingConfigs.getByName("release")
+        getByName("release") {
+            signingConfig = signingConfigs.getByName("debug")
+        }
+        getByName("debug") {
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }

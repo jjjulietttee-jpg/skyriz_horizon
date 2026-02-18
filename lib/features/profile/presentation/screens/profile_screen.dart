@@ -348,7 +348,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     gradient: AppColors.primaryGradient,
                                     boxShadow: [
                                       BoxShadow(
-                                        color: AppColors.glowColor.withValues(alpha: 0.4),
+                                        color: AppColors.glowColor
+                                            .withValues(alpha: 0.4),
                                         blurRadius: 12.0,
                                         spreadRadius: 2.0,
                                       ),
@@ -356,7 +357,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                                   child: Center(
                                     child: Text(
-                                      _username.isNotEmpty ? _username[0].toUpperCase() : 'P',
+                                      _username.isNotEmpty
+                                          ? _username[0].toUpperCase()
+                                          : 'P',
                                       style: TextStyle(
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,

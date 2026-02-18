@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/shared/theme/app_colors.dart';
 import '../../domain/entities/player.dart';
+import 'plane_painter.dart';
 
 class PlayerWidget extends StatelessWidget {
   final Player player;
@@ -23,39 +24,33 @@ class PlayerWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Trail effect
             Positioned(
-              left: -playerSize * 0.5,
+              left: -playerSize * 0.6,
               child: Container(
-                width: playerSize,
-                height: playerSize * 0.2,
+                width: playerSize * 0.8,
+                height: playerSize * 0.3,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.accentOrange.withValues(alpha: 0.8),
+                      AppColors.accentOrange.withValues(alpha: 0.9),
+                      AppColors.accentRed.withValues(alpha: 0.4),
                       Colors.transparent,
                     ],
                   ),
+                  borderRadius: BorderRadius.circular(playerSize),
                 ),
               ),
             ),
             Container(
-              width: playerSize,
-              height: playerSize,
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.glowColor.withValues(alpha: 0.8),
-                    blurRadius: 20.0,
-                    spreadRadius: 2.0,
-                  ),
-                ],
+              width: playerSize * 1.2,
+              height: playerSize * 1.2,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
               ),
-              child: Center(
-                child: Icon(
-                  Icons.airplanemode_active,
-                  size: playerSize,
+              child: CustomPaint(
+                painter: PlanePainter(
                   color: AppColors.textPrimary,
+                  accentColor: AppColors.accentRed,
                 ),
               ),
             ),

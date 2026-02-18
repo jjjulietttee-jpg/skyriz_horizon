@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:skyline_drift/features/game/presentation/widgets/plane_painter.dart';
 import '../../../../core/shared/widgets/custom_text.dart';
 import '../../../../core/shared/theme/app_colors.dart';
 import '../../../../core/shared/extensions/context_extensions.dart';
@@ -67,7 +68,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> _navigateAfterDelay() async {
     await Future.delayed(const Duration(milliseconds: 2000));
-    
+
     if (!mounted) return;
 
     final prefs = await SharedPreferences.getInstance();
@@ -132,10 +133,15 @@ class _SplashScreenState extends State<SplashScreen>
                         ],
                       ),
                       child: Center(
-                        child: Icon(
-                          Icons.flight_takeoff,
-                          size: context.widthPercent(0.2),
-                          color: AppColors.textPrimary,
+                        child: SizedBox(
+                          width: context.widthPercent(0.25),
+                          height: context.widthPercent(0.25),
+                          child: CustomPaint(
+                            painter: PlanePainter(
+                              color: AppColors.textPrimary,
+                              accentColor: AppColors.accentRed,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -173,7 +179,8 @@ class _SplashScreenState extends State<SplashScreen>
                 FadeTransition(
                   opacity: _fadeAnimation,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: context.heightPercent(0.05)),
+                    padding:
+                        EdgeInsets.only(bottom: context.heightPercent(0.05)),
                     child: SizedBox(
                       width: context.widthPercent(0.12),
                       height: context.widthPercent(0.12),
