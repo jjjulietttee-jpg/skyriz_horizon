@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../theme/app_colors.dart';
 import '../extensions/context_extensions.dart';
 import 'custom_elevated_button.dart';
@@ -12,6 +13,7 @@ class CustomPopup extends StatefulWidget {
   final bool showTextField;
   final String? textFieldHint;
   final String? initialValue;
+  final int? textFieldMaxLength;
   final Function(String?)? onConfirm;
   final VoidCallback? onCancel;
   final String confirmText;
@@ -25,6 +27,7 @@ class CustomPopup extends StatefulWidget {
     this.showTextField = false,
     this.textFieldHint,
     this.initialValue,
+    this.textFieldMaxLength,
     this.onConfirm,
     this.onCancel,
     this.confirmText = 'Confirm',
@@ -39,6 +42,7 @@ class CustomPopup extends StatefulWidget {
     bool showTextField = false,
     String? textFieldHint,
     String? initialValue,
+    int? textFieldMaxLength,
     Function(String?)? onConfirm,
     VoidCallback? onCancel,
     String confirmText = 'Confirm',
@@ -56,6 +60,7 @@ class CustomPopup extends StatefulWidget {
           showTextField: showTextField,
           textFieldHint: textFieldHint,
           initialValue: initialValue,
+          textFieldMaxLength: textFieldMaxLength,
           onConfirm: onConfirm,
           onCancel: onCancel,
           confirmText: confirmText,
@@ -80,7 +85,7 @@ class _CustomPopupState extends State<CustomPopup>
   void initState() {
     super.initState();
     _textController = TextEditingController(text: widget.initialValue ?? '');
-    
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -199,6 +204,14 @@ class _CustomPopupState extends State<CustomPopup>
                             TextField(
                               controller: _textController,
                               autofocus: true,
+                              maxLength: widget.textFieldMaxLength,
+                              inputFormatters: widget.textFieldMaxLength != null
+                                  ? [
+                                      LengthLimitingTextInputFormatter(
+                                        widget.textFieldMaxLength,
+                                      ),
+                                    ]
+                                  : null,
                               style: TextStyle(
                                 color: AppColors.textPrimary,
                                 fontSize: context.mediumTextSize,
@@ -206,24 +219,31 @@ class _CustomPopupState extends State<CustomPopup>
                               decoration: InputDecoration(
                                 hintText: widget.textFieldHint ?? 'Enter text',
                                 hintStyle: TextStyle(
-                                  color: AppColors.textSecondary.withValues(alpha: 0.5),
+                                  color: AppColors.textSecondary
+                                      .withValues(alpha: 0.5),
                                 ),
                                 filled: true,
-                                fillColor: AppColors.secondaryDark.withValues(alpha: 0.5),
+                                fillColor: AppColors.secondaryDark
+                                    .withValues(alpha: 0.5),
                                 border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(context.widthPercent(0.03)),
+                                  borderRadius: BorderRadius.circular(
+                                      context.widthPercent(0.03)),
                                   borderSide: BorderSide(
-                                    color: AppColors.accentBlue.withValues(alpha: 0.3),
+                                    color: AppColors.accentBlue
+                                        .withValues(alpha: 0.3),
                                   ),
                                 ),
                                 enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(context.widthPercent(0.03)),
+                                  borderRadius: BorderRadius.circular(
+                                      context.widthPercent(0.03)),
                                   borderSide: BorderSide(
-                                    color: AppColors.accentBlue.withValues(alpha: 0.3),
+                                    color: AppColors.accentBlue
+                                        .withValues(alpha: 0.3),
                                   ),
                                 ),
                                 focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(context.widthPercent(0.03)),
+                                  borderRadius: BorderRadius.circular(
+                                      context.widthPercent(0.03)),
                                   borderSide: BorderSide(
                                     color: AppColors.accentBlue,
                                     width: 2.0,
@@ -251,8 +271,10 @@ class _CustomPopupState extends State<CustomPopup>
                               onPressed: _handleCancel,
                               gradient: LinearGradient(
                                 colors: [
-                                  AppColors.textSecondary.withValues(alpha: 0.6),
-                                  AppColors.textSecondary.withValues(alpha: 0.4),
+                                  AppColors.textSecondary
+                                      .withValues(alpha: 0.6),
+                                  AppColors.textSecondary
+                                      .withValues(alpha: 0.4),
                                 ],
                                 begin: Alignment.topLeft,
                                 end: Alignment.bottomRight,
@@ -265,7 +287,9 @@ class _CustomPopupState extends State<CustomPopup>
                         Expanded(
                           child: Padding(
                             padding: EdgeInsets.only(
-                              left: widget.cancelText.isNotEmpty ? context.widthPercent(0.02) : 0,
+                              left: widget.cancelText.isNotEmpty
+                                  ? context.widthPercent(0.02)
+                                  : 0,
                             ),
                             child: CustomElevatedButton(
                               text: widget.confirmText,

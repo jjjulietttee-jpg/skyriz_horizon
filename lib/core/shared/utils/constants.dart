@@ -1,5 +1,5 @@
 class AppConstants {
-  static const String backgroundImagePath = 'assets/images/bg.png';
+  static const String backgroundImagePath = 'assets/images/fone.png';
   
   static const int onboardingPageCount = 3;
   
