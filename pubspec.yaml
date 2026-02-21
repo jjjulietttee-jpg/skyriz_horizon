@@ -27,4 +27,5 @@ flutter:
 
   assets:
     - assets/images/bg.png
+    - assets/images/fone.png
     - assets/app_icons/

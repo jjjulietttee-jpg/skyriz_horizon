@@ -23,6 +23,7 @@ class GameHUD extends StatelessWidget {
         child: Column(
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
@@ -42,19 +43,21 @@ class GameHUD extends StatelessWidget {
                   ],
                 ),
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     CustomText(
                       text: 'Best',
                       fontSize: context.smallTextSize,
                       enableGlow: false,
                       color: AppColors.textSecondary,
+                      textAlign: TextAlign.center,
                     ),
                     CustomText(
                       text: highScore.toString(),
                       fontSize: context.mediumTextSize,
                       fontWeight: FontWeight.bold,
                       color: AppColors.accentPurple,
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

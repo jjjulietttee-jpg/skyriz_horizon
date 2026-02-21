@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/shared/utils/constants.dart';
 import '../../../../core/shared/widgets/custom_text.dart';
 import '../../../../core/shared/widgets/card_widget.dart';
 import '../../../../core/shared/widgets/custom_popup.dart';
@@ -21,6 +22,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _isLoading = true;
   bool _hasShownPopup = false;
 
+  String _normalizeUsername(String username) {
+    final trimmed = username.trim();
+    if (trimmed.isEmpty) return 'Pilot';
+    if (trimmed.length <= AppConstants.maxUsernameLength) return trimmed;
+    return trimmed.substring(0, AppConstants.maxUsernameLength);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -30,14 +38,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _loadData() async {
     final username = await _statsService.getUsername();
     final stats = await _statsService.getStats();
+    final normalizedUsername = _normalizeUsername(username);
+
+    if (normalizedUsername != username) {
+      await _statsService.saveUsername(normalizedUsername);
+    }
 
     setState(() {
-      _username = username;
+      _username = normalizedUsername;
       _stats = stats;
       _isLoading = false;
     });
 
-    if (!_hasShownPopup && username == 'Pilot') {
+    if (!_hasShownPopup && normalizedUsername == 'Pilot') {
       _hasShownPopup = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         _showUsernamePopup();
@@ -54,12 +67,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         message: 'Enter your pilot name',
         showTextField: true,
         textFieldHint: 'Pilot Name',
+        textFieldMaxLength: AppConstants.maxUsernameLength,
         confirmText: 'Confirm',
         onConfirm: (value) async {
           if (value != null && value.trim().isNotEmpty) {
-            await _statsService.saveUsername(value.trim());
+            final username = _normalizeUsername(value);
+            await _statsService.saveUsername(username);
             setState(() {
-              _username = value.trim();
+              _username = username;
             });
           }
         },
@@ -75,14 +90,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
         message: 'Enter your new pilot name',
         showTextField: true,
         textFieldHint: 'Pilot Name',
+        textFieldMaxLength: AppConstants.maxUsernameLength,
         initialValue: _username,
         confirmText: 'Save',
         cancelText: 'Cancel',
         onConfirm: (value) async {
           if (value != null && value.trim().isNotEmpty) {
-            await _statsService.saveUsername(value.trim());
+            final username = _normalizeUsername(value);
+            await _statsService.saveUsername(username);
             setState(() {
-              _username = value.trim();
+              _username = username;
             });
           }
         },
@@ -142,7 +159,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if (confirm == true) {
                   await _statsService.resetStats();
                   _loadData();
-                  if (mounted) Navigator.pop(context);
+                  if (context.mounted) Navigator.pop(context);
                 }
               },
               isDestructive: true,
@@ -182,11 +199,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CustomText(
-          text: 'FLIGHT STATISTICS',
-          fontSize: context.largeTextSize,
-          fontWeight: FontWeight.w900,
-          color: AppColors.accentRed,
+        Center(
+          child: CustomText(
+            text: 'FLIGHT STATISTICS',
+            fontSize: context.largeTextSize,
+            fontWeight: FontWeight.w900,
+            color: AppColors.accentRed,
+            textAlign: TextAlign.center,
+          ),
         ),
         SizedBox(height: context.heightPercent(0.02)),
         CardWidget(
@@ -296,7 +316,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: const AssetImage('assets/images/bg.png'),
+            image: const AssetImage('assets/images/fone.png'),
             fit: BoxFit.cover,
             colorFilter: ColorFilter.mode(
               Colors.black.withValues(alpha: 0.8),
